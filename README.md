@@ -1,14 +1,16 @@
-## Projekt Treningowy z Regresji Liniowej: Klienci E-commerce
+Podstawowa różnica między regresją logistyczną a liniową:
 
-### Cel Projektu
-To jest projekt treningowy, co oznacza, że dane nie są rzeczywiste i projekt służy wyłącznie celom edukacyjnym. Zakładamy, że firma próbuje zdecydować, czy powinna skupić swoje działania na ulepszeniu doświadczeń z aplikacji mobilnej, czy strony internetowej. Naszym celem jest pomóc im podjąć decyzję opartą na danych.
+1. **Regresja liniowa**:
+   - Używamy jej, gdy przewidujemy **wartości ciągłe**. Na przykład, jeśli chcemy przewidzieć cenę domu na podstawie jego powierzchni, używamy regresji liniowej.
+   - Regresja liniowa zakłada, że istnieje **liniowa zależność** między zmienną zależną (którą przewidujemy) a zmiennymi niezależnymi (które wykorzystujemy do przewidywań).
 
-### Dane Wykorzystane w Projekcie
-W tym projekcie pracujemy z zestawem danych dostępnym na [Kaggle](https://www.kaggle.com/datasets/iyadavvaibhav/ecommerce-customer-device-usage). Dane zawierają informacje o klientach strony internetowej e-commerce, obejmujące następujące cechy:
+2. **Regresja logistyczna**:
+   - Stosujemy ją, gdy nasza zmienna zależna (wynik, który chcemy przewidzieć) jest **dyskretna, zazwyczaj binarna**. Przykład: przewidywanie, czy dana osoba zachoruje (1) czy nie (0) na podstawie czynników takich jak wiek i styl życia.
+   - Regresja logistyczna **prognozuje prawdopodobieństwo**, więc wynik będzie liczony jako wartość między 0 a 1, co ułatwia klasyfikację do odpowiednich kategorii.
 
-- **Średnia długość sesji**: Średni czas trwania sesji porady stylizacyjnej w sklepie.
-- **Czas spędzony w aplikacji**: Średni czas spędzony w aplikacji mobilnej, w minutach.
-- **Czas spędzony na stronie internetowej**: Średni czas spędzony na stronie internetowej, w minutach.
-- **Długość członkostwa**: Liczba lat, od kiedy klient jest członkiem.
+**Kiedy użyć której?**
 
-> Uwaga: Wszystkie dane osobowe w tym zestawie są fikcyjne.
+- Jeśli przewidywana zmienna jest **ciągła** (np. temperatura, cena), wybieramy regresję **liniową**.
+- Jeśli przewidywana zmienna jest **kategoryczna** (np. chory/zdrowy, tak/nie), wybieramy regresję **logistyczną**.
+
+![regresje](pics/linvslog.png)
