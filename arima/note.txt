@@ -1,0 +1,62 @@
+Modele autoregresji (AR) i średniej ruchomej (MA) mogą być bardzo przydatne w analizie danych magazynowych, 
+zwłaszcza jeśli chcesz prognozować kluczowe metryki na podstawie przeszłych danych. Oto kilka przykładów zastosowań:
+
+### 1. Prognozowanie zapasów (stock forecasting)
+Możesz przewidywać zapotrzebowanie na produkty w magazynie, bazując na wcześniejszych poziomach zapasów.
+
+Przykład: Jeśli wiesz, że zapasy konkretnego produktu maleją o określonym wzorcu (np. w określonych dniach tygodnia), 
+autoregresja pozwoli to modelować i przewidzieć, kiedy należy zamówić nowe dostawy.
+
+###2. Analiza sezonowości popytu
+ARIMA (który łączy AR, MA i integrację) może być używany do uwzględniania sezonowych wzorców w popycie.
+
+Przykład: W okresie przedświątecznym popyt na określone produkty wzrasta. Model ARIMA pozwala uwzględnić wzorce z przeszłości, 
+aby lepiej zaplanować zapasy.
+
+### 3. Optymalizacja zamówień i kosztów magazynowania
+Prognozowanie przyszłych trendów w danych magazynowych pozwala minimalizować nadmiar zapasów lub niedobory, 
+co wpływa na koszty przechowywania i utrzymania towarów.
+
+Przykład: Zamiast przechowywać duże ilości produktów, które się nie sprzedają, możesz przewidywać, kiedy popyt na dany produkt spadnie, 
+i wstrzymać nadmierne zakupy.
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.arima_model import ARIMA
+
+# Symulowane dane o sprzedaży produktów
+data = {
+    "Date": pd.date_range(start="2024-01-01", periods=30),
+    "Sales": [100, 120, 130, 150, 170, 160, 155, 145, 150, 165, 
+              175, 180, 190, 185, 200, 220, 210, 215, 205, 200,
+              195, 210, 225, 230, 240, 250, 245, 235, 220, 210]
+}
+
+df = pd.DataFrame(data)
+df.set_index("Date", inplace=True)
+
+# Wykres danych
+plt.figure(figsize=(10, 6))
+plt.plot(df.index, df["Sales"], label="Sprzedaż")
+plt.xlabel("Data")
+plt.ylabel("Sprzedaż")
+plt.title("Sprzedaż produktów w magazynie")
+plt.legend()
+plt.show()
+
+# ARIMA - prognoza
+model = ARIMA(df["Sales"], order=(2, 0, 2))  # AR=2, I=0, MA=2
+fitted_model = model.fit()
+
+# Prognoza
+forecast = fitted_model.forecast(steps=10)[0]
+
+# Wyświetlenie prognozy
+plt.figure(figsize=(10, 6))
+plt.plot(df.index, df["Sales"], label="Sprzedaż historyczna")
+plt.plot(pd.date_range(start="2024-02-01", periods=10), forecast, label="Prognoza", linestyle="--")
+plt.xlabel("Data")
+plt.ylabel("Sprzedaż")
+plt.title("Prognoza sprzedaży produktów")
+plt.legend()
+plt.show()
